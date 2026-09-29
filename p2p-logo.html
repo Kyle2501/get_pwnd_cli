@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 120" width="100%" height="100%">
+  <defs>
+    <!-- Styles for clean font rendering -->
+    <style>
+      .bg-purple { fill: #8b2252; }
+      .bg-white { fill: #ffffff; }
+      .text-p2p { font-family: system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 54px; fill: #d8a0bc; letter-spacing: 2px; }
+      .text-ejected { font-family: system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 26px; fill: #111111; letter-spacing: 0.5px; }
+      .symbol-eject { fill: #111111; }
+    </style>
+  </defs>
+
+  <!-- Outer Rounded Container -->
+  <rect x="10" y="10" width="400" height="100" rx="8" ry="8" fill="none" stroke="#8b2252" stroke-width="4"/>
+
+  <!-- Left Side: Purple Block -->
+  <path d="M 14 10 L 195 10 L 195 110 L 14 110 Q 10 110 10 106 L 10 14 Q 10 10 14 10 Z" class="bg-purple" />
+  
+  <!-- Right Side: White Block -->
+  <path d="M 195 10 L 406 10 Q 410 10 410 14 L 410 106 Q 410 110 406 110 L 195 110 Z" class="bg-white" />
+
+  <!-- Center Divider Line matching stroke -->
+  <line x1="195" y1="10" x2="195" y2="110" stroke="#8b2252" stroke-width="4" />
+
+  <!-- P2P Text -->
+  <text x="35" y="78" class="text-p2p">P2P</text>
+
+  <!-- EJECTED MEDIA Text -->
+  <text x="216" y="47" class="text-ejected">EJECTED</text>
+  <text x="216" y="80" class="text-ejected">MEDIA</text>
+
+  <!-- Eject Symbol (Triangle over bar) -->
+  <g transform="translate(352, 57)">
+    <polygon points="20,0 40,24 0,24" class="symbol-eject" />
+    <rect x="0" y="30" width="40" height="7" rx="1.5" class="symbol-eject" />
+  </g>
+</svg>
