@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLOX eZine // P2P Download - Punch Cards</title>
+<style>
+  :root {
+    --bg-color: #0b0f12;
+    --panel-bg: #141b22;
+    --neon-green: #39ff14;
+    --acid-yellow: #ccff00;
+    --hot-pink: #ff007f;
+    --cyber-cyan: #00f0ff;
+    --dark-metal: #1c2430;
+    --line-color: #05070a;
+    --text-glow: 0 0 10px rgba(57, 255, 20, 0.4);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--acid-yellow);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    overflow-x: hidden;
+  }
+
+  .zine-container {
+    width: 100%;
+    max-width: 800px;
+    background: var(--panel-bg);
+    border: 3px solid var(--neon-green);
+    box-shadow: 0 0 25px rgba(57, 255, 20, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.8);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Header banner */
+  .zine-header {
+    background: var(--line-color);
+    border-bottom: 2px dashed var(--neon-green);
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .zine-title {
+    font-size: 1.25rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: var(--neon-green);
+    text-shadow: var(--text-glow);
+  }
+
+  .zine-meta {
+    font-size: 0.75rem;
+    color: var(--cyber-cyan);
+    background: rgba(0, 240, 255, 0.1);
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--cyber-cyan);
+  }
+
+  /* Main art viewport */
+  .art-viewport {
+    width: 100%;
+    height: 420px;
+    background: linear-gradient(135deg, #0d131a 0%, #1a0b14 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Grid overlay for aesthetic */
+  .art-viewport::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(57, 255, 20, 0.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(57, 255, 20, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Interactive Footer Panel */
+  .zine-footer {
+    padding: 1.25rem;
+    background: var(--dark-metal);
+    border-top: 2px solid var(--neon-green);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .download-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .file-info {
+    font-size: 0.85rem;
+    color: #fff;
+  }
+
+  .file-info span {
+    color: var(--hot-pink);
+    font-weight: bold;
+  }
+
+  .p2p-btn {
+    background: var(--neon-green);
+    color: var(--line-color);
+    font-weight: 900;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 10px var(--neon-green);
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .p2p-btn:hover {
+    background: var(--acid-yellow);
+    box-shadow: 0 0 20px var(--acid-yellow);
+    transform: translateY(-2px);
+  }
+
+  .terminal-statusbar {
+    font-size: 0.7rem;
+    color: #7c90a0;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* CSS Cell Shading & Animation Enhancements */
+  .anime-hair {
+    fill: #2df8c3;
+  }
+  .anime-skin {
+    fill: #ffe5d0;
+  }
+  .anime-outfit {
+    fill: #f0f4f8;
+  }
+  .anime-shade {
+    fill: rgba(0, 0, 0, 0.18);
+  }
+  .punch-card {
+    fill: #222d3d;
+    stroke: var(--cyber-cyan);
+    stroke-width: 2;
+  }
+  .punch-hole {
+    fill: var(--bg-color);
+  }
+</style>
+</head>
+<body>
+
+<div class="zine-container">
+  <!-- Header -->
+  <div class="zine-header">
+    <div class="zine-title">GLOX eZine // v4.2</div>
+    <div class="zine-meta">P2P PROTOCOL: ACTIVE [PUNCH CARDS]</div>
+  </div>
+
+  <!-- SVG Artwork Viewport -->
+  <div class="art-viewport">
+    <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+      <!-- Background Graphic Elements -->
+      <g opacity="0.3">
+        <line x1="0" y1="225" x2="800" y2="225" stroke="#00f0ff" stroke-width="1" stroke-dasharray="4 4" />
+        <line x1="400" y1="0" x2="400" y2="450" stroke="#ff007f" stroke-width="1" stroke-dasharray="4 4" />
+        <circle cx="400" cy="225" r="150" fill="none" stroke="#39ff14" stroke-width="1" />
+      </g>
+
+      <!-- Decorative Punch Cards Stream (Background) -->
+      <g transform="translate(50, 60) rotate(-10)">
+        <rect class="punch-card" x="0" y="0" width="160" height="90" rx="4" />
+        <rect class="punch-hole" x="15" y="15" width="12" height="20" rx="2" />
+        <rect class="punch-hole" x="35" y="15" width="12" height="20" rx="2" />
+        <rect class="punch-hole" x="55" y="15" width="12" height="20" rx="2" />
+        <rect class="punch-hole" x="75" y="15" width="12" height="20" rx="2" />
+        <rect class="punch-hole" x="95" y="15" width="12" height="20" rx="2" />
+        <rect class="punch-hole" x="115" y="15" width="12" height="20" rx="2" />
+        <rect class="punch-hole" x="15" y="50" width="12" height="20" rx="2" />
+        <rect class="punch-hole" x="55" y="50" width="12" height="20" rx="2" />
+        <rect class="punch-hole" x="95" y="50" width="12" height="20" rx="2" />
+        <rect class="punch-hole" x="135" y="50" width="12" height="20" rx="2" />
+      </g>
+
+      <g transform="translate(580, 280) rotate(15)">
+        <rect class="punch-card" x="0" y="0" width="180" height="100" rx="4" />
+        <rect class="punch-hole" x="20" y="20" width="14" height="24" rx="2" />
+        <rect class="punch-hole" x="45" y="20" width="14" height="24" rx="2" />
+        <rect class="punch-hole" x="70" y="20" width="14" height="24" rx="2" />
+        <rect class="punch-hole" x="95" y="20" width="14" height="24" rx="2" />
+        <rect class="punch-hole" x="120" y="20" width="14" height="24" rx="2" />
+        <rect class="punch-hole" x="20" y="55" width="14" height="24" rx="2" />
+        <rect class="punch-hole" x="70" y="55" width="14" height="24" rx="2" />
+        <rect class="punch-hole" x="145" y="55" width="14" height="24" rx="2" />
+      </g>
+
+      <!-- Wide Minimal Cell-Shaded Anime Girl Character -->
+      <!-- Torso & Shoulders Frame -->
+      <g transform="translate(250, 130)">
+        <!-- Back Hair Layer -->
+        <path d="M40,30 L10,180 L80,240 L160,240 L220,180 L190,30 Z" fill="#129975" stroke="#05070a" stroke-width="4"/>
+        
+        <!-- Shoulders / Outfit -->
+        <path d="M50,190 L20,300 L280,300 L250,190 Q150,220 50,190 Z" class="anime-outfit" stroke="#05070a" stroke-width="4"/>
+        <!-- Outfit Collar/Details -->
+        <path d="M120,190 L150,230 L180,190 Z" fill="#ff007f" stroke="#05070a" stroke-width="3"/>
+        <path d="M150,230 L150,300" stroke="#05070a" stroke-width="3"/>
+
+        <!-- Neck -->
+        <path d="M125,120 L125,195 L175,195 L175,120 Z" class="anime-skin" stroke="#05070a" stroke-width="4"/>
+        <path d="M125,170 L175,170 L175,195 L125,195 Z" class="anime-shade"/>
+
+        <!-- Face Base -->
+        <path d="M100,60 Q150,30 200,60 Q230,120 200,165 Q150,180 100,165 Q70,120 100,60 Z" class="anime-skin" stroke="#05070a" stroke-width="4"/>
+        <!-- Face Cell Shadow -->
+        <path d="M100,60 Q150,30 200,60 Q215,90 200,120 Q150,100 100,120 Q85,90 100,60 Z" class="anime-shade" opacity="0.4"/>
+
+        <!-- Eyes -->
+        <g transform="translate(0, 5)">
+          <!-- Left Eye -->
+          <ellipse cx="125" cy="110" rx="12" ry="16" fill="#fff" stroke="#05070a" stroke-width="3"/>
+          <ellipse cx="125" cy="112" rx="7" ry="10" fill="#00f0ff"/>
+          <circle cx="123" cy="108" r="3" fill="#fff"/>
+          <!-- Left Eyebrow -->
+          <path d="M110,88 Q125,82 140,92" fill="none" stroke="#05070a" stroke-width="3" stroke-linecap="round"/>
+
+          <!-- Right Eye -->
+          <ellipse cx="175" cy="110" rx="12" ry="16" fill="#fff" stroke="#05070a" stroke-width="3"/>
+          <ellipse cx="175" cy="112" rx="7" ry="10" fill="#00f0ff"/>
+          <circle cx="173" cy="108" r="3" fill="#fff"/>
+          <!-- Right Eyebrow -->
+          <path d="M160,92 Q175,82 190,88" fill="none" stroke="#05070a" stroke-width="3" stroke-linecap="round"/>
+        </g>
+
+        <!-- Nose & Mouth -->
+        <path d="M148,132 L152,132 L150,138 Z" fill="#05070a"/>
+        <path d="M140,152 Q150,162 160,152" fill="none" stroke="#05070a" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Front Bangs & Visor / Headgear Style -->
+        <path d="M90,50 Q150,10 210,50 Q180,90 150,70 Q120,90 90,50 Z" class="anime-hair" stroke="#05070a" stroke-width="4"/>
+        <path d="M95,45 Q150,75 205,45 L215,20 Q150,-5 85,20 Z" fill="#ff007f" stroke="#05070a" stroke-width="4"/>
+        <circle cx="150" cy="28" r="8" fill="#ccff00" stroke="#05070a" stroke-width="3"/>
+
+        <!-- Side Hair Strands -->
+        <path d="M95,70 Q70,120 85,170 Q75,130 95,70 Z" class="anime-hair" stroke="#05070a" stroke-width="3"/>
+        <path d="M205,70 Q230,120 215,170 Q225,130 205,70 Z" class="anime-hair" stroke="#05070a" stroke-width="3"/>
+      </g>
+
+      <!-- Floating HUD Elements & Typography inside SVG -->
+      <g transform="translate(30, 40)">
+        <rect x="0" y="0" width="130" height="30" fill="#05070a" stroke="#39ff14" stroke-width="2"/>
+        <text x="12" y="20" fill="#39ff14" font-family="monospace" font-size="12" font-weight="bold">NODE // 087</text>
+      </g>
+
+      <g transform="translate(620, 40)">
+        <rect x="0" y="0" width="150" height="30" fill="#05070a" stroke="#ff007f" stroke-width="2"/>
+        <text x="10" y="20" fill="#ff007f" font-family="monospace" font-size="12" font-weight="bold">PUNCH_CARDS.BIN</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Interactive Footer -->
+  <div class="zine-footer">
+    <div class="download-section">
+      <div class="file-info">
+        TARGET: <span>Punch Cards Module (v2.1)</span><br>
+        FORMAT: <span>Single-File HTML/SVG Archive</span><br>
+        HASH: <span>sha256-f9a8...32bc</span>
+      </div>
+      <button class="p2p-btn" onclick="alert('Initiating P2P direct stream connection... Packet handshake complete!')">
+        Download P2P Package
+      </button>
+    </div>
+    
+    <div class="terminal-statusbar">
+      <span>STATUS: PEERS CONNECTED [14]</span>
+      <span>ENCRYPTION: SECURE-WASM</span>
+      <span>SPEED: 12.4 MB/s</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
