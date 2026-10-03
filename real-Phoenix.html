@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cel-Shaded Anime Scene - Phoenix Skyline</title>
+    <style>
+        :root {
+            /* Cel-shaded Anime Palette with Vibrant Shadow Contrast */
+            --sky-blue: #70b5ff;
+            --sky-gradient-bottom: #d4ecff;
+            
+            --building-base: #f5e4c3;
+            --building-shadow-1: #b98fc6; /* Purple-tinted anime shadow */
+            --building-shadow-2: #583978; /* Deep purple contrast */
+            
+            --foliage-base: #388a5e;
+            --foliage-shadow: #14382c;
+            --palm-trunk: #8c5830;
+            
+            --ground-base: #d28c59;
+            --ground-shadow: #7a3c5d; /* Warm magenta-brown shadow */
+            --monument-white: #f0f4f8;
+            --monument-shadow: #8fa1c7;
+            
+            --iron-bars: #1a1624;
+            --rim-light: rgba(255, 220, 150, 0.6);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0b0914;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        .scene-container {
+            position: relative;
+            width: 900px;
+            height: 675px;
+            background: linear-gradient(to bottom, var(--sky-blue), var(--sky-gradient-bottom));
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        /* Layered SVG Elements */
+        svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        /* Cel-Shading & Multi-Color Shadow Effects */
+        .cel-building {
+            fill: var(--building-base);
+            filter: drop-shadow(-8px 12px 0px var(--building-shadow-2)) 
+                    drop-shadow(-3px 4px 0px var(--building-shadow-1));
+        }
+
+        .cel-monument {
+            fill: var(--monument-white);
+            filter: drop-shadow(10px 10px 0px var(--monument-shadow));
+        }
+
+        .cel-foliage {
+            fill: var(--foliage-base);
+            filter: drop-shadow(6px 8px 0px var(--foliage-shadow));
+        }
+
+        .cel-ground {
+            fill: var(--ground-base);
+            filter: drop-shadow(0px -15px 0px var(--ground-shadow));
+        }
+
+        /* Foreground Framing Bars and Ironwork (Creating depth) */
+        .foreground-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .bar {
+            position: absolute;
+            background: var(--iron-bars);
+            box-shadow: inset 4px 0 6px var(--rim-light), 10px 0 20px rgba(0,0,0,0.9);
+        }
+
+        .bar-left { left: 12%; width: 35px; height: 100%; }
+        .bar-center { left: 32%; width: 45px; height: 100%; }
+
+        /* Ornate Iron Cross in bottom right */
+        .iron-gate-overlay {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 320px;
+            height: 350px;
+            background: radial-gradient(circle, transparent 55%, var(--iron-bars) 56%);
+            border: 24px solid var(--iron-bars);
+            border-radius: 50%;
+            box-shadow: -10px -10px 30px rgba(0,0,0,0.6);
+        }
+
+        /* Anime Atmosphere / Dust Particles */
+        .dust-particle {
+            position: absolute;
+            background: rgba(255, 240, 200, 0.7);
+            border-radius: 50%;
+            animation: floatUp 8s infinite linear;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0px) translateX(0px); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-300px) translateX(50px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="scene-container">
+    <!-- Background Layer: Sky & Distant Skyscraper Silhouettes -->
+    <svg viewBox="0 0 900 675">
+        <!-- Sun Glow / Anime Horizon Flare -->
+        <circle cx="750" cy="250" r="180" fill="rgba(255, 245, 200, 0.25)" />
+
+        <!-- Distant Skyscrapers (Downtown Phoenix representation) -->
+        <rect x="580" y="120" width="90" height="280" fill="#a3b8d1" />
+        <polygon points="580,120 625,80 670,120" fill="#7a9bc2" />
+        
+        <rect x="370" y="170" width="70" height="230" class="cel-building" />
+        <rect x="230" y="140" width="120" height="260" class="cel-building" />
+        <rect x="50" y="110" width="100" height="290" fill="#e2d2b5" filter="drop-shadow(-5px 5px 0px #8b7355)" />
+
+        <!-- Midground Trees & Foliage -->
+        <path d="M0,380 Q80,340 180,360 T380,350 T550,380 L550,430 L0,430 Z" class="cel-foliage" />
+        
+        <!-- Palm Tree Silhouette -->
+        <path d="M790,420 L805,160 L825,160 L810,420 Z" fill="var(--palm-trunk)" />
+        <path d="M810,170 Q880,120 920,150 Q850,190 810,170 Z" fill="var(--foliage-shadow)" />
+        <path d="M810,170 Q750,110 700,130 Q770,180 810,170 Z" fill="var(--foliage-base)" />
+
+        <!-- Cemetery Ground Base -->
+        <path d="M0,420 Q450,390 900,420 L900,675 L0,675 Z" class="cel-ground" />
+
+        <!-- Headstones and Vaults (Cel-Shaded with Hard Contrast Shadows) -->
+        <!-- Large Box Vault -->
+        <rect x="500" y="310" width="140" height="130" class="cel-monument" />
+        <polygon points="500,310 530,280 670,280 640,310" fill="#c8d6eb" />
+
+        <!-- Obelisk / Tombstone Center -->
+        <rect x="450" y="280" width="35" height="150" class="cel-monument" />
+        <polygon points="445,280 467,245 490,280" fill="#b3c5e0" />
+
+        <!-- Foreground Headstones -->
+        <rect x="200" y="500" width="55" height="90" rx="6" class="cel-monument" />
+        <rect x="750" y="590" width="60" height="70" fill="#a4b4c7" filter="drop-shadow(6px 6px 0px #4d5b70)" />
+    </svg>
+
+    <!-- Floating Atmosphere Particles -->
+    <div class="dust-particle" style="width: 4px; height: 4px; bottom: 200px; left: 300px; animation-delay: 0s;"></div>
+    <div class="dust-particle" style="width: 6px; height: 6px; bottom: 150px; left: 600px; animation-delay: 2s;"></div>
+    <div class="dust-particle" style="width: 3px; height: 3px; bottom: 250px; left: 450px; animation-delay: 4s;"></div>
+
+    <!-- Foreground Framing Overlay (Bars & Iron Gate) -->
+    <div class="foreground-frame">
+        <div class="bar bar-left"></div>
+        <div class="bar bar-center"></div>
+        <div class="iron-gate-overlay"></div>
+    </div>
+</div>
+
+</body>
+</html>
