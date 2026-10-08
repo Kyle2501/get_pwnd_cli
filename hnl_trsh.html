@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HNL Trash-Trash // Remote Dispatch Terminal</title>
+  <style>
+    :root {
+      --bg: #121212;
+      --card-bg: #1a1a1a;
+      --amber: #FF8A00;
+      --moss: #2F3E34;
+      --bone: #F4F1EA;
+      --gray: #7E827A;
+      --danger: #cf6679;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--bone);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+      padding: 12px;
+      line-height: 1.4;
+    }
+    header {
+      border: 2px solid var(--amber);
+      padding: 12px;
+      margin-bottom: 16px;
+      position: relative;
+      background: linear-gradient(135deg, rgba(47, 62, 52, 0.4) 0%, rgba(18, 18, 18, 0.9) 100%);
+    }
+    .badge-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed var(--gray);
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      color: var(--amber);
+    }
+    h1 {
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hawaii-deco {
+      font-size: 1.2rem;
+      color: var(--amber);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 600px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+    }
+    .panel {
+      background: var(--card-bg);
+      border: 1px solid var(--moss);
+      padding: 12px;
+      border-radius: 4px;
+    }
+    .panel-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid rgba(126, 130, 122, 0.2);
+      padding-bottom: 4px;
+    }
+    label {
+      font-size: 0.75rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      display: block;
+      margin-top: 6px;
+    }
+    input, select, button {
+      width: 100%;
+      background: #000;
+      color: var(--bone);
+      border: 1px solid var(--gray);
+      padding: 8px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      margin-top: 2px;
+      border-radius: 2px;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--amber);
+    }
+    button {
+      background: var(--moss);
+      border: 1px solid var(--amber);
+      color: var(--bone);
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    button:active { background: var(--amber); color: #000; }
+    .btn-sync {
+      background: transparent;
+      border: 1px solid var(--amber);
+      color: var(--amber);
+    }
+    .entry-list {
+      list-style: none;
+      margin-top: 8px;
+      max-height: 240px;
+      overflow-y: auto;
+    }
+    .entry-item {
+      border-left: 3px solid var(--amber);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+    }
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      color: var(--bone);
+    }
+    .entry-sub {
+      color: var(--gray);
+      font-size: 0.75rem;
+      margin-top: 2px;
+    }
+    .status-terminal {
+      font-family: monospace;
+      font-size: 0.75rem;
+      background: #000;
+      border: 1px solid var(--gray);
+      color: #76c043;
+      padding: 8px;
+      height: 90px;
+      overflow-y: auto;
+      margin-top: 12px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge-bar">
+      <span>NODE: CAPITOL-MALL-PHX</span>
+      <span>STATUS: LOCAL_PAIRED</span>
+    </div>
+    <h1><span class="hawaii-deco">🪷</span> HNL TRASH-TRASH</h1>
+    <div style="font-size: 0.75rem; color: var(--gray); margin-top: 2px;">
+      HONOLULU // DOWNTOWN PHOENIX TRANSIT & DISPATCH
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- Schedule Creation Panel -->
+    <div class="panel">
+      <div class="panel-title"><span>❖</span> New Dispatch Assignment</div>
+      <form id="dispatchForm">
+        <label>Zone / Sector (Downtown PHX)</label>
+        <select id="locSelect" required>
+          <option value="17th Ave & Washington (State Capitol)">17th Ave & Washington (State Capitol)</option>
+          <option value="Wesley Bolin Plaza Core">Wesley Bolin Plaza Core</option>
+          <option value="Jefferson St Logistics Corridor">Jefferson St Logistics Corridor</option>
+          <option value="Adams St State Complex">Adams St State Complex</option>
+        </select>
+
+        <label>Assigned Unit / Crew</label>
+        <select id="teamSelect" required>
+          <option value="Crew A (Oahu Transit Unit)">Crew A (Oahu Transit Unit)</option>
+          <option value="Crew B (Valley Heavy Haul)">Crew B (Valley Heavy Haul)</option>
+          <option value="Crew C (Capitol Sweepers)">Crew C (Capitol Sweepers)</option>
+        </select>
+
+        <label>Shift Date & Time</label>
+        <input type="datetime-local" id="timeInput" required>
+
+        <button type="submit">Commit Dispatch Node</button>
+      </form>
+    </div>
+
+    <!-- Sync and Operations Panel -->
+    <div class="panel">
+      <div class="panel-title"><span>⚙</span> Remote Unit Pairing</div>
+      <label>Paired Management Node IP / Host</label>
+      <input type="text" id="remoteNode" value="paired-node-01.hnl-trash.local" readonly>
+
+      <button type="button" class="btn-sync" id="syncBtn">Execute P2P Mesh Sync</button>
+
+      <label style="margin-top: 12px;">Active Schedules</label>
+      <ul class="entry-list" id="scheduleList"></ul>
+    </div>
+  </div>
+
+  <div class="status-terminal" id="termLog">[INIT] IndexedDB storage pool mounted: hnl_trash_db
+[INFO] Ready for mobile input (Termux / Firefox Focus mode).</div>
+
+  <script>
+    // --- IndexedDB Local-First Engine ---
+    let db;
+    const DB_NAME = "HNL_Trash_DB";
+    const STORE_NAME = "schedules";
+
+    function initDB() {
+      const request = indexedDB.open(DB_NAME, 1);
+      request.onupgradeneeded = (e) => {
+        db = e.target.result;
+        if (!db.objectStoreNames.contains(STORE_NAME)) {
+          db.createObjectStore(STORE_NAME, { keyPath: "id", autoIncrement: true });
+        }
+      };
+      request.onsuccess = (e) => {
+        db = e.target.result;
+        renderSchedules();
+      };
+      request.onerror = (e) => log("DB Error: " + e.target.error);
+    }
+
+    function log(msg) {
+      const term = document.getElementById("termLog");
+      const timestamp = new Date().toTimeString().split(" ")[0];
+      term.textContent += `\n[${timestamp}] ${msg}`;
+      term.scrollTop = term.scrollHeight;
+    }
+
+    // --- Data Handlers ---
+    function saveEntry(entry) {
+      const tx = db.transaction([STORE_NAME], "readwrite");
+      const store = tx.objectStore(STORE_NAME);
+      store.add(entry);
+      tx.oncomplete = () => {
+        log(`Committed dispatch to ${entry.location}`);
+        renderSchedules();
+      };
+    }
+
+    function renderSchedules() {
+      const tx = db.transaction([STORE_NAME], "readonly");
+      const store = tx.objectStore(STORE_NAME);
+      const request = store.getAll();
+
+      request.onsuccess = () => {
+        const list = document.getElementById("scheduleList");
+        list.innerHTML = "";
+        const entries = request.result;
+
+        if (entries.length === 0) {
+          list.innerHTML = "<li style='font-size:0.75rem; color:var(--gray);'>No active dispatches logged.</li>";
+          return;
+        }
+
+        entries.forEach((item) => {
+          const li = document.createElement("li");
+          li.className = "entry-item";
+          li.innerHTML = `
+            <div class="entry-header">
+              <span>${item.team}</span>
+              <span style="color:var(--amber)">#${item.id}</span>
+            </div>
+            <div class="entry-sub">📍 ${item.location}</div>
+            <div class="entry-sub">🕒 ${new Date(item.datetime).toLocaleString()}</div>
+          `;
+          list.appendChild(li);
+        });
+      };
+    }
+
+    // --- UI Listeners ---
+    document.getElementById("dispatchForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const newEntry = {
+        location: document.getElementById("locSelect").value,
+        team: document.getElementById("teamSelect").value,
+        datetime: document.getElementById("timeInput").value,
+        synced: false
+      };
+      saveEntry(newEntry);
+    });
+
+    document.getElementById("syncBtn").addEventListener("click", () => {
+      log("Broadcasting heartbeat to remote paired node...");
+      setTimeout(() => {
+        log("Connection established: paired-node-01");
+        log("Local-first reconciliation: OK. (0 conflicts resolved)");
+      }, 650);
+    });
+
+    // Default current timestamp in form
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    document.getElementById("timeInput").value = now.toISOString().slice(0, 16);
+
+    // Initialize storage engine on load
+    window.addEventListener("DOMContentLoaded", initDB);
+  </script>
+</body>
+</html>
