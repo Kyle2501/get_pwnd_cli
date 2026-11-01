@@ -1,0 +1,9 @@
+[package]
+name = "pptx_batch_cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+zip = "0.6"
+quick-xml = "0.31"
+clap = { version = "4.4", features = ["derive"] }
