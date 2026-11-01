@@ -1,0 +1,6 @@
+./target/release/pptx_batch_cli \
+  --input-dir /sdcard/Documents/presentations/ \
+  --output-dir /sdcard/Documents/processed/ \
+  --pattern "Q3" \
+  --target "Drafting" \
+  --replacement "Finalized"
