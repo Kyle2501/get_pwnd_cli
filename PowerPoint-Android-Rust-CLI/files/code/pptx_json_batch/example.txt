@@ -1,0 +1,4 @@
+./target/release/pptx_json_batch \
+  --input-dir /sdcard/Documents/presentations/ \
+  --output-dir /sdcard/Documents/processed/ \
+  --rules /sdcard/Documents/rules.json
