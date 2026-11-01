@@ -1,0 +1,5 @@
+./target/release/pptx_cli \
+  --input /sdcard/Documents/deck.pptx \
+  --output /sdcard/Documents/deck_updated.pptx \
+  --target "Placeholder Title" \
+  --replacement "Automated Rust Slide"
